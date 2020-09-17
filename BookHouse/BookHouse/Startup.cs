@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookHouse.Models.EF;
+using BookHouse.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +26,11 @@ namespace BookHouse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IDanhMucSachRepository, DanhMucSachRepository>();
+            services.AddScoped<ISachRepository, SachRepository>();
             services.AddControllersWithViews();
+            services.AddDbContext<AppDBContext>(options =>
+                                                options.UseSqlServer(Configuration.GetConnectionString("AppDbConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

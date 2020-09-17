@@ -8,12 +8,12 @@ namespace BookHouse.Models.Entities
 {
     public class DanhMucSach
     {[Key]
-        public int DanhMucSacId { get; set; }
+        public int DanhMucSachId { get; set; }
         [Required]
         [MaxLength(500)]
         [Display(Name ="Tên Danh Mục")]
         public string TenDanhMuc { get; set; }
-        [Required]
+       
         [MaxLength(10000)]
         [Display(Name = "Mô tả")]
         public string MoTa { get; set; }

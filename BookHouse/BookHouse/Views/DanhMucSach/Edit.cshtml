@@ -1,0 +1,36 @@
+﻿@model DanhMucSach;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-controller="DanhMucSach" asp-action="Edit" method="post">
+    <input hidden asp-for="DanhMucSachId" />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="TenDanhMuc">Tên danh mục: </label>
+        </div>
+        <div class="col-md-9">
+            <input asp-for="TenDanhMuc" class="form-control" placeholder="Nhập tên danh mục">
+            <span asp-validation-for="TenDanhMuc" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="MoTa">Mô Tả : </label>
+        </div>
+        <div class="col-md-9">
+            <textarea asp-for="MoTa" class="form-control" placeholder="Nhập mô tả"></textarea>
+            <span asp-validation-for="MoTa" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+            <button type="submit" class="btn btn-primary">Cập Nhật</button>
+            <a asp-controller="DanhMucSach" asp-action="Index" class="btn btn-secondary mx-3">Huỷ</a>
+        </div>
+    </div>
+</form>
+

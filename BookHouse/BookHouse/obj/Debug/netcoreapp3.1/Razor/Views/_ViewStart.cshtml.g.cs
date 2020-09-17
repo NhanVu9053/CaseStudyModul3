@@ -26,8 +26,15 @@ using BookHouse.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "D:\WBD\CaseStudyModul3\BookHouse\BookHouse\Views\_ViewImports.cshtml"
+using BookHouse.Models.Entities;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7091c65830b0329e613be026ede8a57552863778", @"/Views/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8e0e7d00573c7481b64fb01ec2a08ef7e4144eb6", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f5b60a54e398df87f98b39cbd788120c8c38c0c7", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

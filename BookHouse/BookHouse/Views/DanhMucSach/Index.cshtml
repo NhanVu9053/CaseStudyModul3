@@ -1,0 +1,45 @@
+﻿@model List<BookHouse.Models.Entities.DanhMucSach>
+@{
+    ViewData["Title"] = " Danh Sách Danh Mục";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    //Layout = null;
+}
+
+
+
+<div>
+    <h3 class="display text-center">DANH SÁCH DANH MỤC</h3>
+    <a asp-controller="DanhMucSach" asp-action="Create" class="btn btn-warning mb-2">Tạo Danh Mục</a>
+    <table id="tbDanhMuc" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>#ID</th>
+                <th>Tên Danh Mục</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@role.DanhMucSachId</td>
+                        <td>@role.TenDanhMuc</td>
+
+                        <td>
+                            <a asp-controller="DanhMucSach" asp-action="Edit" asp-route-id="@role.DanhMucSachId" class="text-danger"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:void(0)" class="text-danger" onclick="role.delete('@role.DanhMucSachId')"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox/bootbox.min.js"></script>
+    <script src="~/js/DanhMuc.js" asp-append-version="true"></script>
+}
