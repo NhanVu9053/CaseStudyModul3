@@ -12,6 +12,8 @@ Bạn đã cài đặt phiên bản Visual Studio phiên bản mới nhất.
 Bạn đang sử dụng máy Linux hoặc Mac OS hoặc Windows.
 Bạn có hiểu biết cơ bản về lập trình.
 ⌨ Các ngôn ngữ sử dụng trong dự án:
-
-HTML, CSS, Javascript, Ajax
+HTML, CSS, Javascript
 C#
+Công nghệ Netcore 3.1, EntityFramework
+
+
