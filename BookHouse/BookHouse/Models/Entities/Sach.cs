@@ -32,7 +32,7 @@ namespace BookHouse.Models.Entities
 
         public string AnhSach { get; set; }
         [Required(ErrorMessage = "Bạn Chưa Nhập Giá")]
-      
+        [Range(1, int.MaxValue, ErrorMessage = "Nhập sai giá!")]
         public int GiaSach { get; set; }
 
         [ForeignKey("DanhMuc")]

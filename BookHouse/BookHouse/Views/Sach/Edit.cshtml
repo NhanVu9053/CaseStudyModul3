@@ -1,0 +1,161 @@
+﻿@model BookHouse.Models.Entities.Sach
+@inject BookHouse.Models.EF.AppDBContext context
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="card bg-light">
+    <article class="card-body">
+        <h1 class="card-title mt-3 text-center" style="color:red">Chỉnh sửa sách</h1>
+        <hr /> <br />
+        <form asp-controller="Sach" asp-action="Edit" method="post" class=" mt-6 col-12 container" autocomplete="off" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-sm-6 ">
+                    <div class="input-group mb-4">
+                        <input type="hidden" asp-for="SachID" />
+                        <div class="input-group-prepend" style=" width:40%">
+                            <label class="input-group-text" style=" width:100%" asp-for="TenSach"></label>
+                        </div>
+                        <div style=" width:60%">
+                            <input class="form-control" asp-for="TenSach">
+                        </div>
+                        <span asp-validation-for=" TenSach" class=" text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" row">
+                <div class="col-sm-6 ">
+                    <div class="input-group mb-4 ">
+                        <div class="input-group-prepend" style=" width:40%">
+                            <label class="input-group-text" style=" width:100%" asp-for="TacGia"></label>
+                        </div>
+                        <div style=" width:60%">
+                            <input class="form-control" asp-for="TacGia">
+                        </div>
+                        <span asp-validation-for=" TacGia" class=" text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-sm-6 ">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend" style=" width:40%">
+                            <label class="input-group-text" style=" width:100%" asp-for="NXB"></label>
+                        </div>
+                        <div style=" width:60%">
+                            <input class="form-control" asp-for="NXB">
+                        </div>
+                        <span asp-validation-for=" NXB" class=" text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" row">
+                    <div class="col-sm-6 ">
+                        <div class="input-group mb-4 ">
+                            <div class="input-group-prepend" style=" width:40%">
+                                <label class="input-group-text" style=" width:100%" asp-for="DanhMucId"></label>
+                            </div>
+                            <div style=" width:60%">
+                                <select asp-for="DanhMucId" class="custom-select" onchange="themoi(this.value)">
+                                    <option value="" selected>Chọn danh mục</option>
+                                    @foreach (var item in context.DanhMucSachs)
+                                    {
+                                        <option value="@item.DanhMucSachId">@item.TenDanhMuc</option>
+                                    }
+                                </select>
+                            </div>
+                            <span asp-validation-for=" DanhMucId  " class=" text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend" style=" width:40%">
+                            <label class="input-group-text" style=" width:100%" asp-for="NgayXuatBan  "></label>
+                        </div>
+                        <div style="width:60%">
+                            <input class="form-control" asp-for="NgayXuatBan" rows="6">
+                        </div>
+                        <span asp-validation-for=" NgayXuatBan   " class=" text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class=" row">
+                <div class="col-sm-6 ">
+                    <div class="input-group mb-4 ">
+                        <div class="input-group-prepend" style=" width:40%">
+                            <label class="input-group-text" style=" width:100%" asp-for="GiaSach"></label>
+                        </div>
+                        <div style=" width:60%">
+                            <input class="form-control" asp-for="GiaSach">
+                        </div>
+                        <span asp-validation-for=" GiaSach" class=" text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group-prepend" style=" width:19.5%">
+                    <label class="input-group-text" style=" width:100%" asp-for="TomTatSach  "></label>
+                </div>
+                <textarea class="form-control" asp-for="TomTatSach" rows="6"></textarea>
+                <span asp-validation-for=" TomTatSach   " class=" text-danger"></span>
+            </div>
+
+            <div class=" row">
+                <div class="col-sm-6 ">
+                    <div class="input-group-prepend " style=" width:40%">
+                        <label class="input-group-text " style=" width:100%">Chọn ảnh sản phẩm</label>
+                        <input id="customFile" name="ImageFiles" type="file" multiple />
+                        <div id="image-holder"></div>
+                    </div>
+                </div>
+                
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-7">
+                    <img src="~/images/" id="image_upload_preview" asp-append-version="true" style="width:300px; height: 300px; align-content:center" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <a style="margin:0px 20px" class=" btn btn-info float-lg-right" asp-controller="Sach" asp-action="Index">Quay lại</a>
+                <button type="submit" class="btn btn-primary  float-lg-right"> Chỉnh Sửa</button>
+
+            </div>
+
+        </form>
+
+    </article>
+</div>
+
+@section Scripts{
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#image_upload_preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#customFile").change(function () {
+            readURL(this);
+        });
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        });
+    </script>
+}
+

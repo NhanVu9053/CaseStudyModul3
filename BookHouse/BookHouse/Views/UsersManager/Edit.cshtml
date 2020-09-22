@@ -1,0 +1,85 @@
+﻿@model BookHouse.Models.ViewModel.UsersViewModel.UserEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var roles = ViewBag.Roles as IQueryable<Microsoft.AspNetCore.Identity.IdentityRole>;
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card border-secondary">
+                        <div class="card-header">
+                            <h3 class="mb-0 my-2 text-center">Chỉnh sửa Tài Khoản</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" asp-controller="UsersManager" asp-action="Edit" method="post" autocomplete="off">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <input hidden asp-for="UserId" />
+                                
+                                <div class="form-group">
+                                    <label for="inputEmail3">Email</label>
+                                    <input asp-for="Email" type="email" class="form-control" id="inputEmail3" placeholder="email@codegym.com" required="">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                              
+                                <div class="form-group">
+                                    <label for="inputPassword3"> Số Điện Thoại</label>
+                                    <input asp-for="SoDienThoai" type="tel" class="form-control" required="">
+                                    <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3">Giới tính</label>
+                                    <div>
+                                        @Html.RadioButtonFor(s => s.Gender, BookHouse.Models.Users.Gender.Nam) @Html.Label("Nam")
+                                    </div>
+                                    <div>
+                                        @Html.RadioButtonFor(s => s.Gender, BookHouse.Models.Users.Gender.Nu) @Html.Label("Nữ")
+                                    </div>
+                                    <div>
+                                        @Html.RadioButtonFor(s => s.Gender, BookHouse.Models.Users.Gender.Khac) @Html.Label("Khác")
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="RoleId">Vai trò: </label>
+                                    <div class="col-md-9">
+                                        <select asp-for="RoleId" class="custom-select">
+                                            <option value="">Chọn vai trò</option>
+                                            @if (roles != null && roles.Any())
+                                            {
+                                                foreach (var role in roles)
+                                                {
+                                                    <option value="@role.Id">@role.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-lg float-lg-right" style="width:auto;">Chỉnh Sửa</button>
+                                    <a asp-controller="UsersManager" asp-action="Index" class="btn btn-warning float-lg-left" style="width:auto;">Back</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+

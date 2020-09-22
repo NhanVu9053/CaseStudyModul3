@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BookHouse.Models.ViewModel.UsersViewModel.UserViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <h3 class="display text-center">DANH SÁCH </h3>
+    <a asp-controller="UsersManager" asp-action="Create" class="btn btn-warning mb-2">Tạo Tài Khoản mới </a>
+    <table id="tbUser" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>UserId</th>
+             
+
+                <th>Email</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@role.UserId</td>
+                       
+                        <td>@role.Email</td>
+                        <td>@role.RoleName</td>
+
+                        <td>
+                            <a asp-controller="UsersManager" asp-action="Edit" asp-route-id="@role.UserId" class="table-warning"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:void(0)" class="text-danger" onclick="role.delete('@role.UserId')"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox/bootbox.min.js"></script>
+
+    <script src="~/js/User.js"></script>
+}

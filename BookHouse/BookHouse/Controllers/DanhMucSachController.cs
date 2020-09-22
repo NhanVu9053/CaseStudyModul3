@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BookHouse.Models.EF;
 using BookHouse.Models.Entities;
 using BookHouse.Models.Repositories;
+using BookHouse.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 

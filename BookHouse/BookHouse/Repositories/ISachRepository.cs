@@ -10,10 +10,10 @@ namespace BookHouse.Models.Repositories
 {
     public interface ISachRepository
     {
-        IEnumerable<Sach> GetAll(int? id);
+        IEnumerable<Sach> GetAll();
        int Get(int id);
        int Create(CreateViewModel sach, IFormFile[] image);
-       int Edit(Sach sach);
-       bool Delete(Sach sach);
+       int Edit(Sach sach, IFormFile[] image);
+       bool Delete(int id);
     }
 }

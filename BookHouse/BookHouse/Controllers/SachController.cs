@@ -14,19 +14,20 @@ namespace BookHouse.Controllers
 {
     public class SachController : Controller
     {
-        private readonly AppDBContext context;
+      
         private readonly ISachRepository sachRepository;
-        private readonly IWebHostEnvironment webHostEnvironment;
+       
 
-        public SachController(AppDBContext context, ISachRepository sachRepository, IWebHostEnvironment webHostEnvironment)
+        public SachController( ISachRepository sachRepository)
         {
-            this.context = context;
+         
             this.sachRepository = sachRepository;
-            this.webHostEnvironment = webHostEnvironment;
+            
         }
         public IActionResult Index()
         {
-            return View();
+            var ressult = sachRepository.GetAll().ToList();
+            return View(ressult.ToList());
         }
         [HttpGet]
         public ViewResult Create()
@@ -46,6 +47,45 @@ namespace BookHouse.Controllers
 
             }
             ViewData["Message"] = "Sản phẩm đã tồn tại";
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var sachs = sachRepository.GetAll().ToList();
+            var editsach = sachs.FirstOrDefault(e => e.SachID == id);
+            var creaSach = new Sach()
+            {
+                SachID = editsach.SachID,
+                TenSach = editsach.TenSach,
+                TacGia = editsach.TacGia,
+                NXB = editsach.NXB,
+                NgayXuatBan = editsach.NgayXuatBan,
+                TomTatSach = editsach.TomTatSach,
+                GiaSach = editsach.GiaSach,
+                DanhMucId = editsach.DanhMucId,
+                AnhSach = editsach.AnhSach
+            };
+            return View(creaSach);
+        }
+        [HttpPost]
+        public IActionResult Edit(Sach model, IFormFile[] ImageFiles)
+        {
+            var result = sachRepository.Edit(model, ImageFiles);
+            if (result > 0)
+            {
+                return RedirectToAction("Index", "Sach");
+            }
+            return View();
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if(sachRepository.Delete(id))
+            {
+                return RedirectToAction("Index", "Sach");
+            }
             return View();
         }
     }

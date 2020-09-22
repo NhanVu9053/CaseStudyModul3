@@ -1,15 +1,17 @@
 ﻿using BookHouse.Models.EF;
 using BookHouse.Models.Entities;
+using BookHouse.Models.Repositories;
 using BookHouse.Models.ViewModel.SachViewmodel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookHouse.Models.Repositories
+namespace BookHouse.Repositories
 {
     public class SachRepository : ISachRepository
     {
@@ -56,14 +58,58 @@ namespace BookHouse.Models.Repositories
             return -1;
         }
 
-        public bool Delete(Sach sach)
+
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+
+            var productToRemove = context.Sachs.Find(id);
+            if (productToRemove != null)
+            {
+                context.Sachs.Remove(productToRemove);
+                context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
-        public int Edit(Sach sach)
+        public int Edit(Sach sach, IFormFile[] image)
         {
-            throw new NotImplementedException();
+            var editSach = context.Sachs.Find(sach.SachID);
+            if (editSach != null)
+            {
+
+
+                editSach.TenSach = sach.TenSach;
+                editSach.TacGia = sach.TacGia;
+                editSach.NXB = sach.NXB;
+                editSach.NgayXuatBan = sach.NgayXuatBan;
+                editSach.TomTatSach = sach.TomTatSach;
+                editSach.GiaSach = sach.GiaSach;
+                editSach.DanhMucId = sach.DanhMucId;
+              
+                var fileName = string.Empty;
+                if (image != null)
+                {
+                    string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                    fileName = $"{Guid.NewGuid()}_{image[0].FileName}";
+                    var filePath = Path.Combine(uploadFolder, fileName);
+                    using (var fs = new FileStream(filePath, FileMode.Create))
+                    {
+                        image[0].CopyTo(fs);
+                    }
+                    
+                    if (!string.IsNullOrEmpty(editSach.AnhSach))
+                    {
+                        string delFile = Path.Combine(webHostEnvironment.WebRootPath, "images",editSach.AnhSach);
+                        System.IO.File.Delete(delFile);
+                    }
+                    editSach.AnhSach = fileName;
+
+                }
+              
+                return context.SaveChanges();
+            }
+            return -1;
         }
 
         public int Get(int id)
@@ -71,9 +117,13 @@ namespace BookHouse.Models.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Sach> GetAll(int? id)
+        public IEnumerable<Sach> GetAll()
         {
-            throw new NotImplementedException();
+            List<Sach> sachs = context.Sachs
+           .Include(e => e.DanhMucSach).ToList();
+
+
+            return sachs;
         }
     }
 }

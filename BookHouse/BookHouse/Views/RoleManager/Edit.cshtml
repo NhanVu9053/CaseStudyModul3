@@ -1,0 +1,29 @@
+﻿@model BookHouse.Models.ViewModel.RoleViewModel.RoleEditViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-controller="RoleManager" asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input asp-for="RoleId" hidden />
+    <div class="row form-group">
+        <div class="col-md-3">
+            <label asp-for="TenVaiTro">Tên vai trò: </label>
+        </div>
+        <div class="col-md-9">
+            <input asp-for="TenVaiTro" class="form-control" placeholder="Nhập tên thương hiệu sản phẩm">
+            <span asp-validation-for="TenVaiTro" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            
+            <a asp-controller="RoleManager" asp-action="Index" class="btn btn-secondary">Huỷ</a>
+        </div>
+    </div>
+</form>
+

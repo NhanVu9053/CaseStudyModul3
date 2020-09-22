@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookHouse.Models.EF;
 using BookHouse.Models.Repositories;
+using BookHouse.Models.Users;
+using BookHouse.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,9 +31,11 @@ namespace BookHouse
         {
             services.AddScoped<IDanhMucSachRepository, DanhMucSachRepository>();
             services.AddScoped<ISachRepository, SachRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddControllersWithViews();
             services.AddDbContext<AppDBContext>(options =>
                                                 options.UseSqlServer(Configuration.GetConnectionString("AppDbConnection")));
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

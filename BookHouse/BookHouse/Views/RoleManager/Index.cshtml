@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BookHouse.Models.Users.Role>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <h3 class="display text-center">DANH SÁCH </h3>
+    <a asp-controller="RoleManager" asp-action="Create" class="btn btn-warning mb-2">Tạo Vai Trò Mới </a>
+    <table id="tbRole" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>RoleId</th>
+                <th>Vai trò</th>
+                <th>Hành động</th>>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@role.RoleId</td>
+                        <td>@role.TenVaiTro</td>                  
+
+                        <td>
+                            <a asp-controller="RoleManager" asp-action="Edit" asp-route-id="@role.RoleId" class="table-warning"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:void(0)" class="text-danger" onclick="role.delete('@role.RoleId')"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox/bootbox.min.js"></script>
+    <script src="~/js/Role.js"></script>
+  
+}
+

@@ -1,0 +1,57 @@
+﻿@model List<BookHouse.Models.Entities.Sach>
+@{
+    ViewData["Title"] = "Danh sách sách";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <h3 class="display text-center">DANH SÁCH </h3>
+    <a asp-controller="Sach" asp-action="Create" class="btn btn-warning mb-2">Tạo Sách Mới</a>
+    <table id="tbSach" class="table table-bordered table-hover table-primary">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Tên Sách</th>
+
+                <th>Tác giả</th>
+                <th>Nhà xuất bản</th>
+                <th>Ngày xuất bản</th>
+                <th>Ảnh sách</th>
+                <th>Giá sách</th>
+                <th>Danh mục</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var role in Model)
+                {
+                    <tr>
+                        <td>@role.SachID</td>
+                        <td>@role.TenSach</td>
+                        <td>@role.TacGia</td>
+                        <td>@role.NXB</td>
+                        <td>@role.NgayXuatBan</td>
+                        <td>  <img width="100px" src="~/images/@role.AnhSach" alt="Chưa upload ảnh" /> </td>
+                        <td>@role.GiaSach</td>
+                        <td>@role.DanhMucId</td>
+
+
+                        <td>
+                            <a asp-controller="Sach" asp-action="Edit" asp-route-id="@role.SachID" class="text-danger"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:void(0)" class="text-danger" onclick="role.delete('@role.SachID')"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/lib/bootbox/bootbox.min.js"></script> 
+    <script src="~/js/Sach.js"></script>
+}
+
